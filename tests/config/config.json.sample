@@ -1,0 +1,13 @@
+{
+  "environments": {
+    "local": {
+      "base_url": "http://localhost:3020",
+      "admin_artist_email": "artist@beatflow.com",
+      "admin_artist_password": "Artist123!",
+      "admin_listener_email": "listener@beatflow.com",
+      "admin_listener_password": "Listener123!",
+      "admin_label_email": "label@beatflow.com",
+      "admin_label_password": "Label123!"
+    }
+  }
+}

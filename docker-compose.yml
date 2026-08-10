@@ -1,0 +1,36 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: beatadmin
+      POSTGRES_PASSWORD: beatpass123
+      POSTGRES_DB: beatflow
+    ports:
+      - "5434:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U beatadmin -d beatflow"]
+      interval: 3s
+      timeout: 3s
+      retries: 10
+
+  api:
+    build:
+      context: ./api
+    ports:
+      - "3020:3000"
+    environment:
+      DATABASE_HOST: db
+      DATABASE_PORT: 5432
+      DATABASE_USER: beatadmin
+      DATABASE_PASSWORD: beatpass123
+      DATABASE_NAME: beatflow
+      JWT_SECRET: beatflow-secret-key-2026
+      PORT: 3000
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  pgdata:
